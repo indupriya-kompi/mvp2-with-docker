@@ -25,41 +25,65 @@ From the root of the project directory, run:
 
 ```bash
 docker build -t featurebox-ai .
-
+```
 
 ## Run the Docker Container
 
-### Run the container locally, mounting your Google Cloud credentials if needed:
+If your app requires Google Cloud credentials:
+Mount your service account key file inside the container and set the environment variable:
 
+```bash
 docker run -v /full/path/to/your-service-account.json:/tmp/key.json \
   -e GOOGLE_APPLICATION_CREDENTIALS=/tmp/key.json \
   -p 8000:8000 \
   featurebox-ai
-Replace /full/path/to/your-service-account.json with the absolute path to your GCP service account key file.
-If your app does not require GCP credentials, you can omit the -v and -e flags:
+```
+
+Replace /full/path/to/your-service-account.json with the absolute path to your GCP credentials JSON file.
+
+## If your app does not require credentials:
+Simply run:
+```
 docker run -p 8000:8000 featurebox-ai
-Access the Application
+```
+## Access the Application
 
-Open your browser and navigate to:
+Open your web browser and go to:
 
-http://localhost:8000/docs
-You should see the API documentation and be able to interact with the app endpoints.
+> http://localhost:8000/docs
+
+You should see the interactive API documentation (Swagger UI) for the FeatureBox AI app.
 
 ## Troubleshooting
 
-If you get a port conflict error, try running the container on a different port, e.g.,
+1. Port 8000 is already in use
+Try running the container on a different port:
+```bash
 docker run -p 8001:8000 featurebox-ai
-and then access http://localhost:8001/docs.
+```
+Then visit http://localhost:8001/docs
 
-If the container stops immediately, check logs using:
+2. Container stops or crashes immediately
+Check the container logs to debug:
+```bash
 docker ps -a
 docker logs <container_id>
-Make sure Docker Desktop is running and you have proper permissions.
-License
+```
 
-MIT License
+3. Docker daemon not running
+Ensure Docker Desktop is running. Restart if necessary.
 
-Feel free to customize or ask for more help!
+## License
+
+This project is licensed under the MIT License.
+
+Contribution
+
+Feel free to open issues or submit pull requests!
+
+Thank you for using MVP2 with Docker!
 
 
-Would you like me to generate a README with more details like setup instructions, environment variables, or testing?
+You can save this as `README.md` at your repo root.
+
+Let me know if you want me to help with any other documentation or repo setup!
